@@ -16,7 +16,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { Column } from "@tanstack/react-table";
-import { Check, PlusCircle, X } from "lucide-react";
+import { Check, PlusCircle } from "lucide-react";
 import { useState } from "react";
 
 interface DataTableFacetedFilterProps<TData, TValue> {
