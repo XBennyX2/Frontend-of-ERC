@@ -1,7 +1,6 @@
-import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { useParams, useNavigate } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -9,9 +8,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { useForm } from 'react-hook-form';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
 
 export default function OrderForm() {
   const { id } = useParams();
@@ -20,20 +19,20 @@ export default function OrderForm() {
 
   const form = useForm({
     defaultValues: {
-      customerName: '',
-      orderDate: '',
-      total: '',
-      status: '',
+      customerName: "",
+      orderDate: "",
+      total: "",
+      status: "",
     },
   });
 
   const onSubmit = async (data: any) => {
     try {
       // TODO: Implement order submission logic
-      console.log('Form data:', data);
-      navigate('/orders');
+      console.log("Form data:", data);
+      navigate("/orders");
     } catch (error) {
-      console.error('Error submitting order:', error);
+      console.error("Error submitting order:", error);
     }
   };
 
@@ -41,7 +40,7 @@ export default function OrderForm() {
     <div className="p-6 space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold tracking-tight">
-          {isEditing ? 'Edit Order' : 'New Order'}
+          {isEditing ? "Edit Order" : "New Order"}
         </h1>
       </div>
 
@@ -110,12 +109,12 @@ export default function OrderForm() {
 
               <div className="flex gap-4">
                 <Button type="submit">
-                  {isEditing ? 'Update Order' : 'Create Order'}
+                  {isEditing ? "Update Order" : "Create Order"}
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => navigate('/orders')}
+                  onClick={() => navigate("/orders")}
                 >
                   Cancel
                 </Button>
