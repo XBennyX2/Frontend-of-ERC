@@ -31,7 +31,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [authState, setAuthState] = useState<AuthState>({
     user: null,
     tokens: null,
-    isAuthenticated: false,
+    isAuthenticated: true,
     isLoading: true,
   });
   const navigate = useNavigate();
@@ -81,7 +81,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setAuthState({
           user: null,
           tokens: null,
-          isAuthenticated: true,
+          isAuthenticated: false,
           isLoading: false,
         });
       }
