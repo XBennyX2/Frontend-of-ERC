@@ -321,7 +321,7 @@ const Dashboard = () => {
                     label={(entry) => `${entry.name}: ${entry.value}%`}
                     labelLine={false}
                   >
-                    {inventoryData.map((entry, index) => (
+                    {inventoryData.map((__, index) => (
                       <Cell
                         key={`cell-${index}`}
                         fill={colors[index % colors.length]}
