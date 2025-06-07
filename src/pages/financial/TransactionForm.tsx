@@ -1,5 +1,4 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -20,7 +19,13 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const formSchema = z.object({
   amount: z.string().min(1, "Amount is required"),
@@ -39,7 +44,7 @@ export default function TransactionForm() {
       amount: "",
       type: "",
       description: "",
-      date: new Date().toISOString().split('T')[0],
+      date: new Date().toISOString().split("T")[0],
     },
   });
 
@@ -48,7 +53,7 @@ export default function TransactionForm() {
       // TODO: Implement transaction creation/update logic
       console.log(values);
     } catch (error) {
-      console.error('Failed to save transaction:', error);
+      console.error("Failed to save transaction:", error);
     }
   }
 
@@ -56,9 +61,13 @@ export default function TransactionForm() {
     <div className="container mx-auto py-6">
       <Card>
         <CardHeader>
-          <CardTitle>{isEditing ? 'Edit Transaction' : 'New Transaction'}</CardTitle>
+          <CardTitle>
+            {isEditing ? "Edit Transaction" : "New Transaction"}
+          </CardTitle>
           <CardDescription>
-            {isEditing ? 'Update the transaction details below.' : 'Enter the transaction details below.'}
+            {isEditing
+              ? "Update the transaction details below."
+              : "Enter the transaction details below."}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -71,7 +80,12 @@ export default function TransactionForm() {
                   <FormItem>
                     <FormLabel>Amount</FormLabel>
                     <FormControl>
-                      <Input type="number" step="0.01" placeholder="0.00" {...field} />
+                      <Input
+                        type="number"
+                        step="0.01"
+                        placeholder="0.00"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -84,7 +98,10 @@ export default function TransactionForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Type</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select transaction type" />
@@ -108,7 +125,10 @@ export default function TransactionForm() {
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter transaction description" {...field} />
+                      <Input
+                        placeholder="Enter transaction description"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -130,7 +150,7 @@ export default function TransactionForm() {
               />
 
               <Button type="submit">
-                {isEditing ? 'Update Transaction' : 'Create Transaction'}
+                {isEditing ? "Update Transaction" : "Create Transaction"}
               </Button>
             </form>
           </Form>
