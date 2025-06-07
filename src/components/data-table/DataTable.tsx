@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -10,7 +10,7 @@ import {
   getSortedRowModel,
   getFilteredRowModel,
   useReactTable,
-} from '@tanstack/react-table';
+} from "@tanstack/react-table";
 import {
   Table,
   TableBody,
@@ -18,25 +18,26 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/table";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
+
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { ChevronDown, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Search } from 'lucide-react';
-import { DataTableViewOptions } from './DataTableViewOptions';
-import { DataTableFacetedFilter } from './DataTableFacetedFilter';
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+  Search,
+} from "lucide-react";
+import { DataTableViewOptions } from "./DataTableViewOptions";
+import { DataTableFacetedFilter } from "./DataTableFacetedFilter";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -47,6 +48,8 @@ interface DataTableProps<TData, TValue> {
   currentPage?: number;
   pageSize?: number;
   searchColumn?: string;
+  searchKey?: string;
+  searchPlaceholder?: string;
   filterableColumns?: {
     id: string;
     title: string;
@@ -74,8 +77,8 @@ export function DataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [pageIndex, setPageIndex] = useState(currentPage);
   const [rowsPerPage, setRowsPerPage] = useState(pageSize);
-  const [searchValue, setSearchValue] = useState('');
-  
+  const [searchValue, setSearchValue] = useState("");
+
   // Reset pagination when data changes
   useEffect(() => {
     if (serverPagination) {
@@ -83,11 +86,14 @@ export function DataTable<TData, TValue>({
       setRowsPerPage(pageSize);
     }
   }, [currentPage, pageSize, serverPagination]);
-  
+
   const table = useReactTable({
     data,
     columns,
-    pageCount: serverPagination && totalCount ? Math.ceil(totalCount / rowsPerPage) : undefined,
+    pageCount:
+      serverPagination && totalCount
+        ? Math.ceil(totalCount / rowsPerPage)
+        : undefined,
     state: {
       sorting,
       columnFilters,
@@ -107,28 +113,32 @@ export function DataTable<TData, TValue>({
     manualPagination: serverPagination,
     manualFiltering: serverPagination,
   });
-  
+
   // Handle pagination changes
   useEffect(() => {
     if (serverPagination && onPaginationChange) {
       onPaginationChange(pageIndex, rowsPerPage);
     }
   }, [pageIndex, rowsPerPage, serverPagination, onPaginationChange]);
-  
+
   // Handle search box input
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchValue(value);
-    
+
     if (searchColumn) {
       if (serverPagination) {
         // For server-side, we update filters but don't directly filter the table
         // The parent component will handle fetching the filtered data
-        setColumnFilters(value.length > 0 
-          ? [...columnFilters.filter(filter => filter.id !== searchColumn), { id: searchColumn, value }]
-          : columnFilters.filter(filter => filter.id !== searchColumn)
+        setColumnFilters(
+          value.length > 0
+            ? [
+                ...columnFilters.filter((filter) => filter.id !== searchColumn),
+                { id: searchColumn, value },
+              ]
+            : columnFilters.filter((filter) => filter.id !== searchColumn)
         );
-        
+
         if (onPaginationChange) {
           setPageIndex(0); // Reset to first page
           onPaginationChange(0, rowsPerPage);
@@ -139,12 +149,12 @@ export function DataTable<TData, TValue>({
       }
     }
   };
-  
+
   // Handle page change
   const handlePageChange = (newPageIndex: number) => {
     setPageIndex(newPageIndex);
   };
-  
+
   // Handle rows per page change
   const handleRowsPerPageChange = (value: string) => {
     const newPageSize = parseInt(value);
@@ -207,7 +217,10 @@ export function DataTable<TData, TValue>({
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
@@ -227,9 +240,7 @@ export function DataTable<TData, TValue>({
       </div>
       <div className="flex items-center justify-between space-x-2 py-4">
         <div className="flex items-center space-x-2">
-          <p className="text-sm text-muted-foreground">
-            Rows per page
-          </p>
+          <p className="text-sm text-muted-foreground">Rows per page</p>
           <Select
             value={String(rowsPerPage)}
             onValueChange={handleRowsPerPageChange}
@@ -247,8 +258,14 @@ export function DataTable<TData, TValue>({
           </Select>
           <div className="flex-1 text-sm text-muted-foreground">
             {serverPagination && totalCount
-              ? `Page ${pageIndex + 1} of ${Math.ceil(totalCount / rowsPerPage)}, ${totalCount} items total`
-              : `Page ${table.getState().pagination.pageIndex + 1} of ${table.getPageCount()}, ${table.getFilteredRowModel().rows.length} items total`}
+              ? `Page ${pageIndex + 1} of ${Math.ceil(
+                  totalCount / rowsPerPage
+                )}, ${totalCount} items total`
+              : `Page ${
+                  table.getState().pagination.pageIndex + 1
+                } of ${table.getPageCount()}, ${
+                  table.getFilteredRowModel().rows.length
+                } items total`}
           </div>
         </div>
         <div className="flex items-center space-x-2">
