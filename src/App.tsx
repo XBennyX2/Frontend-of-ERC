@@ -7,8 +7,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 
 // Auth Components
 import Login from "@/pages/auth/Login";
-import Register from "@/pages/auth/Register";
-import ForgotPassword from "@/pages/auth/ForgotPassword";
+
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 // Layouts
@@ -77,8 +76,6 @@ function App() {
               {/* Auth Routes */}
               <Route element={<AuthLayout />}>
                 <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
               </Route>
 
               {/* Protected Routes */}

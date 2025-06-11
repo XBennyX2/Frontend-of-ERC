@@ -11,8 +11,6 @@ export const login = async (credentials: LoginCredentials): Promise<AuthTokens> 
 };
 
 
-
-
 /**
  * Refresh auth token
  * @param refresh Refresh token
