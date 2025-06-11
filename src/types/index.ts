@@ -20,7 +20,7 @@ export enum UserRole {
 
 // Auth Types
 export interface LoginCredentials {
-  email: string;
+  username: string;
   password: string;
 }
 

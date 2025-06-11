@@ -54,16 +54,16 @@ const salesData = [
 ];
 
 const inventoryData = [
-  { name: "Electronics", value: 40 },
+  { name: "Cement", value: 40 },
   { name: "Apparel", value: 20 },
-  { name: "Home Goods", value: 15 },
-  { name: "Food & Beverage", value: 25 },
+  { name: "Steals", value: 15 },
+  { name: "Vehicles", value: 25 },
 ];
 
 const lowStockItems = [
-  { id: 1, name: "Smartphone X", current: 3, minimum: 5 },
-  { id: 2, name: "Wireless Earbuds", current: 2, minimum: 10 },
-  { id: 3, name: 'HD Monitor 24"', current: 1, minimum: 5 },
+  { id: 1, name: "concrete", current: 3, minimum: 5 },
+  { id: 2, name: "Stone", current: 2, minimum: 10 },
+  { id: 3, name: "binding wires", current: 1, minimum: 5 },
 ];
 
 const recentTransactions = [

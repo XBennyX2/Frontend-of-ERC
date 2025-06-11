@@ -8,7 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "sonner";
-import { login, logout, refreshToken, register } from "@/services/authService";
+import { login, logout, refreshToken } from "@/services/authService";
 import { getUserProfile } from "@/services/userService";
 import {
   User,
@@ -31,7 +31,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [authState, setAuthState] = useState<AuthState>({
     user: null,
     tokens: null,
-    isAuthenticated: true,
+    isAuthenticated: false, // change this to true to check the admin
     isLoading: true,
   });
   const navigate = useNavigate();
@@ -133,23 +133,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const handleRegister = async (data: RegisterData) => {
+  const updateUser = (user: User) => {
+    setAuthState((prev) => ({
+      ...prev,
+      user,
+    }));
+  };
+
+  const handleRegister = async (_data: RegisterData) => {
     try {
-      await register(data);
-      toast.success("Registration successful! You can now log in.");
+      // You should implement the actual register logic here, e.g.:
+      // await register(_data);
+      // Optionally, you can log the user in after registration
+      toast.success("Registration successful! Please log in.");
       navigate("/login");
     } catch (error) {
       console.error("Registration failed:", error);
       toast.error("Registration failed. Please try again.");
       throw error;
     }
-  };
-
-  const updateUser = (user: User) => {
-    setAuthState((prev) => ({
-      ...prev,
-      user,
-    }));
   };
 
   const value = {

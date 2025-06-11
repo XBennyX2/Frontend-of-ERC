@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const loginSchema = z.object({
-  email: z.string().email({ message: "Please enter a valid email address" }),
+  username: z.string().min(1, { message: "Please enter Your Username" }),
   password: z.string().min(1, { message: "Password is required" }),
 });
 
@@ -29,7 +29,7 @@ const Login = () => {
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
   });
@@ -40,7 +40,7 @@ const Login = () => {
 
     try {
       await login({
-        email: data.email,
+        username: data.username,
         password: data.password,
       });
     } catch (err) {
@@ -76,16 +76,18 @@ const Login = () => {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="username">Username</Label>
             <Input
               id="email"
-              type="email"
-              placeholder="name@example.com"
-              {...register("email")}
+              type="text"
+              placeholder="Username"
+              {...register("username")}
               disabled={isLoading}
             />
-            {errors.email && (
-              <p className="text-sm text-destructive">{errors.email.message}</p>
+            {errors.username && (
+              <p className="text-sm text-destructive">
+                {errors.username.message}
+              </p>
             )}
           </div>
           <div className="space-y-2">
